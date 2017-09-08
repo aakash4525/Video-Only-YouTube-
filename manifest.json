@@ -1,0 +1,23 @@
+{
+    "manifest_version": 2,
+    "name": "youTube Video Only",
+    "version": "1.0",
+
+    "description": "YouTube See Only Video",
+
+    "icons": {
+        "48": "icons/qr-code-48.png"
+    },
+
+    "browser_action": {
+        "default_icon": "icons/qr-code.png",
+        "default_title": "YouTube",
+        "default_popup": "youTube.html"
+    },
+
+    "content_scripts": [{
+        "matches": ["https://www.youtube.com/watch?*"],
+        "js": ["js/content_script.js"]
+    }],
+    "permissions": ["tabs", "activeTab"]
+}
