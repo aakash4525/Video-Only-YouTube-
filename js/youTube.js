@@ -22,30 +22,47 @@ function executePage(isTabOfYouTube) {
         document.getElementById("div-container").style.display = "block";
     }
 
-    var btnRemove = document.getElementById("btn-hide"),
+    var btnHide = document.getElementById("btn-hide"),
         btnShow = document.getElementById("btn-show"),
         cmt = document.getElementById("watch-discussion"),
         nxt = document.getElementById("watch7-sidebar-contents");
 
-    btnRemove.addEventListener("click", function(e) {
+    // Hide button click
+    btnHide.addEventListener("click", function(e) {
         var code;
         if (cmt.checked && nxt.checked) {
             hideAllSection();
         }
         else if (cmt.checked) {
-            code = 'var comments = document.getElementById("watch-discussion"); ' +
-                    'if (comments) { comments.parentNode.removeChild(comments); }';
-            hideSections(code);
+            code = 'document.getElementById("watch-discussion").style.display = "none"; ';
+            executeShowHide(code);
         }
         else if (nxt.checked) {
-            code = 'var upNext = document.getElementById("watch7-sidebar-contents"); ' +
-                    'if (upNext) { upNext.parentNode.removeChild(upNext); }';
-            hideSections(code);
+            code = 'document.getElementById("watch7-sidebar-contents").style.display = "none"; ';
+            executeShowHide(code);
+        }
+    }, false);
+
+    // Show button click
+    btnShow.addEventListener("click", function(e) {
+        var code;
+        if (cmt.checked && nxt.checked) {
+            code = 'document.getElementById("watch-discussion").style.display = "block"; ' +
+                'document.getElementById("watch7-sidebar-contents").style.display = "block"; ';
+            executeShowHide(code);
+        }
+        else if (cmt.checked) {
+            code = 'document.getElementById("watch-discussion").style.display = "block"; ';
+            executeShowHide(code);
+        }
+        else if (nxt.checked) {
+            code = 'document.getElementById("watch7-sidebar-contents").style.display = "block"; ';
+            executeShowHide(code);
         }
     }, false);
 }
 
-function hideSections(codeToExec) {
+function executeShowHide(codeToExec) {
     chrome.tabs.executeScript({
         code: codeToExec
     });
