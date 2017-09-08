@@ -31,7 +31,9 @@ function executePage(isTabOfYouTube) {
     btnHide.addEventListener("click", function(e) {
         var code;
         if (cmt.checked && nxt.checked) {
-            hideAllSection();
+            code = 'document.getElementById("watch-discussion").style.display = "none"; ' +
+                'document.getElementById("watch7-sidebar-contents").style.display = "none"; ';
+            executeShowHide(code);
         }
         else if (cmt.checked) {
             code = 'document.getElementById("watch-discussion").style.display = "none"; ';
@@ -66,8 +68,4 @@ function executeShowHide(codeToExec) {
     chrome.tabs.executeScript({
         code: codeToExec
     });
-}
-
-function hideAllSection() {
-    chrome.tabs.executeScript(null, {file: "js/content_script.js"});
 }
