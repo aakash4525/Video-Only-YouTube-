@@ -1,5 +1,8 @@
 console.log("Hello in Extension");
-
+var config = {
+    "operation": ["show", "hide"],
+    "section": ["comments", "upNext"]
+};
 // Get Current Tab URL
 chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
     var tabUrl = tabs[0].url;
@@ -24,8 +27,8 @@ function executePage(isTabOfYouTube) {
 
     var btnHide = document.getElementById("btn-hide"),
         btnShow = document.getElementById("btn-show"),
-        cmt = document.getElementById("watch-discussion"),
-        nxt = document.getElementById("watch7-sidebar-contents");
+        cmt = document.getElementById("input-comments"),
+        nxt = document.getElementById("input-up-next");
 
     // Hide button click
     btnHide.addEventListener("click", function(e) {

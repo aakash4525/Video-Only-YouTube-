@@ -1,12 +1,31 @@
 console.log("In content_script");
+var config = {
+    "operation": ["show", "hide"],
+    "section": ["comments", "upNext"]
+};
+if (typeof operation === 'undefined') {
+    operation = config.operation[1];
+}
+if (typeof section === 'undefined') {
+    section = config.section[0];
+}
 
-// Hide 'Up Next' Section
-document.getElementById("watch7-sidebar-contents").style.display = "none";
-// Hide 'Comments' Section
-document.getElementById("watch-discussion").style.display = "none";
+// Old YouTube
+if (document.getElementById("watch7-sidebar-contents") != null) {
+    // 'Up Next' Section
+    var upNext = document.getElementById("watch7-sidebar-contents"),
+        // 'Comments' Section
+        comments = document.getElementById("watch-discussion");
+}
+// New YouTube
+else {
+    // 'Up Next' Section
+    var upNext = document.getElementById("related"),
+        // 'Comments' Section
+        comments = document.getElementById("comments");
+}
 
+// show or hide Sections
+function showHideSections(uN, c) {
 
-// change the style of 'page-container'
-// var pId = document.getElementById("page-container");
-// pId.style.display = '-webkit-box';
-// pId.style.textAlign = '-webkit-center';
+}

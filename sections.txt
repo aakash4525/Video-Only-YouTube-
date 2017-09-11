@@ -1,7 +1,10 @@
-1. Up Next -- #watch7-sidebar-contents
-2. comments -- #watch-discussion
-3. Video Title -- #watch-header
-4. description -- #action-panel-details
-5. pageCont -- #page-container :- change css
-                        display: -webkit-box;
-                        text-align: -webkit-center;
+                        new             old
+1. Up Next --       #related        #watch7-sidebar-contents
+2. comments --      #comments       #watch-discussion
+
+3. Video Title --   #info           #watch-header
+4. description --   #meta           #action-panel-details
+5. pageCont --      #container      #page-container :-
+                change css
+                display: -webkit-box;
+                text-align: -webkit-center;
