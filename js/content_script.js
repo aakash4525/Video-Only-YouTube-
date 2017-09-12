@@ -3,9 +3,11 @@ var config = {
     "operation": ["show", "hide"],
     "section": ["all", "comments", "upNext"]
 };
+var userDriven = true;
 
 if (typeof operation === 'undefined') {
     operation = config.operation[1];
+    userDriven = false;
 }
 if (typeof section === 'undefined') {
     section = config.section[0];
@@ -21,8 +23,19 @@ var observer = new MutationObserver(function(mutations) {
         // }
     });
 });
-// observe
-observer.observe(document.body, {childList:true, subtree: true, attributes: false, characterData: false});
+
+if (userDriven) {
+    controlTheFlow();
+}
+else {
+    // observe
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: false,
+        characterData: false
+    });
+}
 
 function controlTheFlow() {
     /* Old YouTube */
