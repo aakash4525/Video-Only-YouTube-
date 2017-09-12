@@ -32,36 +32,32 @@ function executePage(isTabOfYouTube) {
 
     // Hide button click
     btnHide.addEventListener("click", function(e) {
-        var code;
+        var code = "var operation = '" + config.operation[1] + "'";
         if (cmt.checked && nxt.checked) {
-            code = 'document.getElementById("watch-discussion").style.display = "none"; ' +
-                'document.getElementById("watch7-sidebar-contents").style.display = "none"; ';
             executeShowHide(code);
         }
         else if (cmt.checked) {
-            code = 'document.getElementById("watch-discussion").style.display = "none"; ';
+            code += "var section = '" + config.section[0] + "'";
             executeShowHide(code);
         }
         else if (nxt.checked) {
-            code = 'document.getElementById("watch7-sidebar-contents").style.display = "none"; ';
+            code += "var section = '" + config.section[1] + "'";
             executeShowHide(code);
         }
     }, false);
 
     // Show button click
     btnShow.addEventListener("click", function(e) {
-        var code;
+        var code = "var operation = '" + config.operation[0] + "'";
         if (cmt.checked && nxt.checked) {
-            code = 'document.getElementById("watch-discussion").style.display = "block"; ' +
-                'document.getElementById("watch7-sidebar-contents").style.display = "block"; ';
             executeShowHide(code);
         }
         else if (cmt.checked) {
-            code = 'document.getElementById("watch-discussion").style.display = "block"; ';
+            code += "var section = '" + config.section[0] + "'";
             executeShowHide(code);
         }
         else if (nxt.checked) {
-            code = 'document.getElementById("watch7-sidebar-contents").style.display = "block"; ';
+            code += "var section = '" + config.section[1] + "'";
             executeShowHide(code);
         }
     }, false);
@@ -70,5 +66,7 @@ function executePage(isTabOfYouTube) {
 function executeShowHide(codeToExec) {
     chrome.tabs.executeScript({
         code: codeToExec
+    }, function() {
+        chrome.tabs.executeScript({file: "js/content_script.js"});
     });
 }
