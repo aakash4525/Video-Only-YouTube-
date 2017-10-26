@@ -1,41 +1,31 @@
-console.log("In content_script");
-var config = {
-    "operation": ["show", "hide"],
-    "section": ["all", "comments", "upNext"]
-};
-var userDriven = true;
+/**
+ * @Author: Akash Ahmed
+ * @Date:   Sep 07, 2017 10:30:40 +05:30
+ * @Last modified by:   Akash Ahmed
+ * @Last modified time: Oct 07, 2017 00:26:11 +05:30
+ */
 
-if (typeof operation === 'undefined') {
-    operation = config.operation[1];
-    userDriven = false;
-}
-if (typeof section === 'undefined') {
-    section = config.section[0];
-}
+console.log("In content_script");
 
 // MutationObserver -- to observe changes in Page
 // https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
 var observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
         console.log("observing...");
-        // if (mutation.type == 'childList') {
         controlTheFlow();
-        // }
     });
 });
 
-if (userDriven) {
-    controlTheFlow();
-}
-else {
-    // observe
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true,
-        attributes: false,
-        characterData: false
-    });
-}
+// observe
+observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+    attributes: false,
+    characterData: false
+});
+
+// disconnect
+// observer.disconnect();
 
 function controlTheFlow() {
     /* Old YouTube */
@@ -52,50 +42,19 @@ function controlTheFlow() {
     if (upNextOld != null && commentsOld != null) {
         console.log("Old YouTube: Getting Hidden");
         observer.disconnect();
-        showHideSections(upNextOld, commentsOld);
+        hideSections(upNextOld, commentsOld);
     }
     else if (upNextNew != null && commentsNew != null) {
         console.log("New YouTube: Getting Hidden");
         observer.disconnect();
-        showHideSections(upNextNew, commentsNew);
+        hideSections(upNextNew, commentsNew);
     }
     else {
         console.log("Couldn't find yet");
     }
 }
 
-// show or hide Sections
-function showHideSections(uN, c) {
-    // Hide
-    if (operation == config.operation[1]) {
-        // ALL
-        if (section == config.section[0]) {
-            uN.style.display = 'none';
-            c.style.display = 'none';
-        }
-        // COMMENTS
-        else if (section == config.section[1]) {
-            c.style.display = 'none';
-        }
-        // UP NEXT
-        else if (section == config.section[2]) {
-            uN.style.display = 'none';
-        }
-    }
-    // Show
-    if (operation == config.operation[0]) {
-        // ALL
-        if (section == config.section[0]) {
-            uN.style.display = 'block';
-            c.style.display = 'block';
-        }
-        // COMMENTS
-        else if (section == config.section[1]) {
-            c.style.display = 'block';
-        }
-        // UP NEXT
-        else if (section == config.section[2]) {
-            uN.style.display = 'block';
-        }
-    }
+function hideSections(uN, c) {
+    uN.style.display = 'none';
+    c.style.display = 'none';
 }
